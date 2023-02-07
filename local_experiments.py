@@ -61,6 +61,8 @@ def match_entities_to_spacy(text: str):
         print(f'SpaCy: {(ent.text + " " + ent.label_).ljust(40)}spaCy-entity-linker: {entity}')
 
 
+
+
 if __name__ == '__main__':
     baskervilles = load_txt_from_url()
 
