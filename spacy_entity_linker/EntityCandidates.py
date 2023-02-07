@@ -20,11 +20,11 @@ class EntityCandidates:
             entity.pretty_print()
 
     def __repr__(self) -> str:
-        preview_str=""
-        for index,entity_element in enumerate(self):
-            if index>MAX_ITEMS_PREVIEW:
+        preview_str = ""
+        for index, entity_element in enumerate(self):
+            if index > MAX_ITEMS_PREVIEW:
                 break
-            preview_str+="{}\n".format(entity_element.get_preview_string())
+            preview_str += f"{entity_element.get_preview_string()}\n"
         
         return preview_str
 

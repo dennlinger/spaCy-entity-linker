@@ -5,6 +5,7 @@ from .EntityClassifier import EntityClassifier
 from .EntityCollection import EntityCollection
 from .TermCandidateExtractor import TermCandidateExtractor
 
+
 @Language.factory('entityLinker')
 class EntityLinker:
 
