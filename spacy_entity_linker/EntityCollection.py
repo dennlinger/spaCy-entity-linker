@@ -1,12 +1,15 @@
 from collections import Counter, defaultdict
 from .DatabaseConnection import get_wikidata_instance
 
-MAX_ITEMS_PREVIEW=20
+MAX_ITEMS_PREVIEW = 20
 
 
 class EntityCollection:
 
-    def __init__(self, entities=[]):
+    def __init__(self, entities=None):
+        # Avoid mutable default argument
+        if entities is None:
+            entities = []
         self.entities = entities
 
     def __iter__(self):
@@ -33,11 +36,11 @@ class EntityCollection:
         wikidataInstance = get_wikidata_instance()
 
         all_categories = []
-        category_to_entites = defaultdict(list)
+        category_to_entities = defaultdict(list)
 
         for e in self.entities:
             for category in e.get_categories(max_depth):
-                category_to_entites[category].append(e)
+                category_to_entities[category].append(e)
                 all_categories.append(category)
 
         counter = Counter()
@@ -45,17 +48,17 @@ class EntityCollection:
 
         for category, frequency in counter.most_common(limit):
             print("{} ({}) : {}".format(wikidataInstance.get_entity_name(category), frequency,
-                                        ','.join([str(e) for e in category_to_entites[category]])))
+                                        ','.join([str(e) for e in category_to_entities[category]])))
 
     def __repr__(self) -> str:
-        preview_str="<EntityCollection ({} entities):".format(len(self))
-        for index,entity_element in enumerate(self):
-            if index>MAX_ITEMS_PREVIEW:
-                preview_str+="\n...{} more".format(len(self)-MAX_ITEMS_PREVIEW)
+        preview_str = "<EntityCollection ({} entities):".format(len(self))
+        for index, entity_element in enumerate(self):
+            if index > MAX_ITEMS_PREVIEW:
+                preview_str += f"\n...{len(self)-MAX_ITEMS_PREVIEW} more"
                 break
-            preview_str+="\n-{}".format(entity_element.get_preview_string())
-        
-        preview_str+=">"
+            preview_str += f"\n-{entity_element.get_preview_string()}"
+
+        preview_str += ">"
         return preview_str
 
     def pretty_print(self):

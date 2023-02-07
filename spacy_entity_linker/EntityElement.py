@@ -20,7 +20,7 @@ class EntityElement:
         if len(row) > 5 and row[5]:
             self.original_alias = row[5]
 
-        self.url="https://www.wikidata.org/wiki/Q{}".format(self.get_id())
+        self.url = "https://www.wikidata.org/wiki/Q{}".format(self.get_id())
         self.span = span
 
         self.chain = None
@@ -108,17 +108,16 @@ class EntityElement:
         return self.url
 
     def __repr__(self):
-        return "<EntityElement: {}>".format(self.get_preview_string())
+        return f"<EntityElement: {self.get_preview_string()}>"
 
     def get_preview_string(self):
-        return "{0:<10} {1:<25} {2:<50}".format(self.get_url(),self.get_label(),self.get_description()[:100])
+        return "{0:<10} {1:<25} {2:<50}".format(self.get_url(), self.get_label(), self.get_description()[:100])
 
     def pretty_string(self, description=False):
         if description:
-            return ','.join([span.text for span in self.span]) + "  => {} <{}>".format(self.get_label(),
-                                                                                       self.get_description())
+            return ','.join([span.text for span in self.span]) + f"  => {self.get_label()} <{self.get_description()}>"
         else:
-            return ','.join([span.text for span in self.span]) + "  => {}".format(self.get_label())
+            return ','.join([span.text for span in self.span]) + f"  => {self.get_label()}"
 
     def save(self, category):
         for span in self.span:
