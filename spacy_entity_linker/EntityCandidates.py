@@ -1,4 +1,5 @@
-MAX_ITEMS_PREVIEW=20
+MAX_ITEMS_PREVIEW = 20
+
 
 class EntityCandidates:
 
