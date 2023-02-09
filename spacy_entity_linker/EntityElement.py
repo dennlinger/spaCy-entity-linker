@@ -20,7 +20,7 @@ class EntityElement:
         if len(row) > 5 and row[5]:
             self.original_alias = row[5]
 
-        self.url = "https://www.wikidata.org/wiki/Q{}".format(self.get_id())
+        self.url = f"https://www.wikidata.org/wiki/Q{self.get_id()}"
         self.span = span
 
         self.chain = None
@@ -51,6 +51,7 @@ class EntityElement:
 
     def get_chain(self, max_depth=10):
         if self.chain is None:
+            # 31 indicates "IS_INSTANCE_OF" property
             self.chain = self.wikidata_instance.get_chain(self.identifier, max_depth=max_depth, property=31)
         return self.chain
 
@@ -106,6 +107,9 @@ class EntityElement:
     
     def get_url(self):
         return self.url
+
+    def get_image_urls(self, limit=10):
+        pass
 
     def __repr__(self):
         return f"<EntityElement: {self.get_preview_string()}>"
