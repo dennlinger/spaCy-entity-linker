@@ -61,12 +61,25 @@ def match_entities_to_spacy(text: str):
         print(f'SpaCy: {(ent.text + " " + ent.label_).ljust(40)}spaCy-entity-linker: {entity}')
 
 
-
-
 if __name__ == '__main__':
     baskervilles = load_txt_from_url()
 
-    doc = associate_entities_with_span(baskervilles)
+    nlp = spacy.load("en_core_web_sm")
+    nlp.add_pipe("entityLinker", last=True)
+    test = "I watched the Pirates of the Caribbean last silvester"
+    doc = nlp(test)
+    for ent in doc.ents:
+        print(ent._.linkedEntities)
+
+    # filtered_entities = []
+    #
+    # for ent in doc.ents:
+    #     if ent.label_ in ["ORG", "PERSON", "GPE", "LOC", "LAW", "EVENT"] and \
+    #        ent._.linkedEntities is not None:
+    #         filtered_entities.append(ent)
+
+
+
 
 
 
